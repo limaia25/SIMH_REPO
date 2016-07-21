@@ -1,44 +1,44 @@
 ---
 layout: indexLayout
-title: "SGES Index"
+title: "SIMH Index"
 ---
-![SGES](http://spms-sges.github.io/SGES_REPO/SGES_Manual_Utilizador/img/SGES.png)
+![SIMH](https://simhspms.github.io/SIMH_REPO/img/simhLogo.jpg)
 
-Página auxiliar do projeto SGES
+Página auxiliar do projeto SIMH
 
 ## Links dos ambientes
 
 ### CI
 
-Link do [SGES](http://192.168.4.220:8001/SGES/ "SGES").
+Link do [SIMH](http://192.168.4.237:8001/SIMH/ "SIMH").
 
-Link do [SGES BackOffice](http://192.168.4.220:8001/SGES_BKO/ "SGES BKO").
+Link do [SIMH BackOffice](http://192.168.4.237:8001/SIMH_BKO/ "SIMH BKO").
 
 ### DEV
 
-Link do [SGES](http://192.168.4.220:7001/SGES/ "SGES").
+Link do [SIMH](http://192.168.4.237:7001/SIMH/ "SIMH").
 
-Link do [SGES BackOffice](http://192.168.4.220:7001/SGES_BKO/ "SGES BKO").
+Link do [SIMH BackOffice](http://192.168.4.237:7001/SIMH_BKO/ "SIMH BKO").
 
 ### QLT
 
-Link do [SGES](http://10.202.12.141:8080/SGES/ "SGES").
+Link do [SIMH](http://10.202.12.141:8080/SIMH/ "SIMH").
 
-Link do [SGES BackOffice](http://10.202.12.141:8080/SGES_BKO/ "SGES BKO").
+Link do [SIMH BackOffice](http://10.202.12.141:8080/SIMH_BKO/ "SIMH BKO").
 
 ### PRD
 
-Link do [SGES](https://sges.min-saude.pt/SGES/ "SGES").
+Link do [SIMH](https://simh.min-saude.pt/SIMH/ "SIMH").
 
-Link do [SGES BackOffice](https://sges.min-saude.pt/SGES_BKO/ "SGES BKO").
+Link do [SIMH BackOffice](https://simh.min-saude.pt/SIMH_BKO/ "SIMH BKO").
 
 ## Repositório de versões
 
-Link do [Repositório](http://192.168.4.220:8081/nexus/ "Nexus").
+Link do [Repositório](http://192.168.4.237:8081/nexus/ "Nexus").
 
 ## Integração contínua dos projetos
 
-Link da ferramenta de [Integração Contínua](http://192.168.4.220:8080 "Jenkins").
+Link da ferramenta de [Integração Contínua](http://192.168.4.237:8080 "Jenkins").
 
-
+![SPMS](https://simhspms.github.io/SIMH_REPO/img/spmsLogo.jpg)
 
