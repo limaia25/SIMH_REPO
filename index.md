@@ -2,7 +2,7 @@
 layout: indexLayout
 title: "SIMH Index"
 ---
-![SIMH](https://simhspms.github.io/SIMH_REPO/img/simhLogo.jpg)
+![SIMH](https://simhspms.github.io/SIMH_REPO/img/simhLogo.png)
 
 Página auxiliar do projeto SIMH
 
