@@ -26,7 +26,11 @@ var posApproach = '5'
 var posDevice = '6'
 var posQualifier= '7'
 
-var codes = json.ICD10PCS.pcsTable;
+var codes;
+$.getJSON( "https://rawgit.com/SIMHSPMS/SIMH_REPO/master/ICD10/icd10pcs-min.json", function( data ) {
+  codes = data["ICD10PCS.tabular"].pcsTable;
+});
+
 
 
 /**Devolve as opcoes da SECCAO*/
@@ -637,3 +641,7 @@ function validateDeviceValue(axisPcsRow, deviceValue){
 	}
 	return exist;
 }
+
+$( document ).ready(function() {
+    buildSectionOptions();
+});
