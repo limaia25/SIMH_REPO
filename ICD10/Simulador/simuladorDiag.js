@@ -2,7 +2,7 @@ var diagnosticoSelect;
 
 var chapters;
 $( document ).ready(function() {
-    $.getJSON( "https://rawgit.com/SIMHSPMS/SIMH_REPO/master/ICD10/icd10cm-min.json", function( data ) {
+    $.getJSON( "https://rawgit.com/SIMHSPMS/SIMH_REPO/master/ICD10/Simulador/icd10cm-min.json", function( data ) {
 	  chapters = data["ICD10CM.tabular"].chapter;
 	});
 	
