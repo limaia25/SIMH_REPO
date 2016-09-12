@@ -2,7 +2,7 @@ var indexSelect;
 
 var indexs;
 $( document ).ready(function() {
-    $.getJSON( "https://rawgit.com/SIMHSPMS/SIMH_REPO/master/ICD10/2017/diagnosticos-index-min.json", function( data ) {
+    $.getJSON( "https://rawgit.com/SIMHSPMS/SIMH_REPO/master/ICD10/Simulador/icd10cm-index-min.json", function( data ) {
 	  indexs = data["ICD10CM.index"].letter;
 	  builIndex();
 	});
