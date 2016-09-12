@@ -4,13 +4,13 @@ var indexs;
 $( document ).ready(function() {
     $.getJSON( "http://rawgit.com/SIMHSPMS/SIMH_REPO/master/ICD10/Simulador/icd10cm-index-min.json", function( data ) {
 	  indexs = data["ICD10CM.index"].letter;
-	  builIndex();
+	  builIndexs();
 	});
 	
 });
 
 /**Devolve o opcoes do index*/
-function builIndex(){
+function builIndexs(){
 	var option = '';
 	/**Percorre os indexs**/
 	$.each(indexs, function(i, letter) {
@@ -36,14 +36,14 @@ function getIndexOptions(search){
 			/**verifica se e o index introduzido**/
 			if(v.title == indexKey){
 				indexSelect = v;
-				buildOptions(search);
+				buildIndex(search);
 			}
 		});
 	}
 }
 
 /**Carrega as opcoes disponiveis**/
-function buildOptions(filter){
+function buildIndex(filter){
 	
 	$('#lista_index').empty();
 	/**se estiver algum diagnostico seleccionado**/
