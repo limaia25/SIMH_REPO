@@ -28,7 +28,7 @@ var posQualifier= '7'
 
 var codes;
 $( document ).ready(function() {
-	$.getJSON( "https://rawgit.com/SIMHSPMS/SIMH_REPO/master/ICD10/icd10pcs-min.json", function( data ) {
+	$.getJSON( "http://rawgit.com/SIMHSPMS/SIMH_REPO/master/ICD10/Simulador/icd10pcs-min.json", function( data ) {
 		  codes = data["ICD10PCS.tabular"].pcsTable;
 		  buildSectionOptions();
 	});
