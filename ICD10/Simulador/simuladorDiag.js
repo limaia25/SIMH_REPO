@@ -5,7 +5,6 @@ $( document ).ready(function() {
     $.getJSON( "http://rawgit.com/SIMHSPMS/SIMH_REPO/master/ICD10/Simulador/icd10cm-min.json", function( data ) {
 	  chapters = data["ICD10CM.tabular"].chapter;
 	});
-	
 });
 
 /**Devolve o diagnostico principal*/
@@ -52,9 +51,11 @@ function buildOptions(filter){
 	
 		/**Adiciona o diagnostico principal**/
 		option += '<li class="node" style="padding-top: 7px;">';
-		option += '<span class="node-toggle"></span>';
-		option += '<span class="leaf"><strong>'+diagnosticoSelect.name+'</strong> '+diagnosticoSelect.desc+'</span>';
+		option += '<div class="capitulo" aria-expanded="true" data-toggle="collapse" data-target="#subList'+diagnosticoSelect.name.split('.').join("")+'">';
+		option += '<strong>'+diagnosticoSelect.name.split('.').join("")+'</strong> '+diagnosticoSelect.desc+'</div>';
+		option += '<ul id="subList'+diagnosticoSelect.name+'" class="collapse in" style="margin-top: 5px;">';
 		option += buildSubOptions(diagnosticoSelect.diag,filter);
+		option += '</ul>'
 		option += '</li>'
 		
 		$('#lista_diag').append(option);
@@ -64,10 +65,6 @@ function buildOptions(filter){
 /**Carrega as sub opcoes disponiveis**/
 function buildSubOptions(diagnostic,filter){
 	
-	/**verifica se tem sub diagnosticos**/
-	if(diagnostic && diagnostic.name == 'C50.01'){
-		var a = '';
-	}
 	var option = '';
 	if($.isArray(diagnostic)){
 		$.each(diagnostic, function(i, v) {
@@ -115,20 +112,24 @@ function buildSubOptions(diagnostic,filter){
 
 /**Cria o HTML para um grupo de diagnostico**/
 function buildHtmlGroupDiagnostic(diagnostic, childs){
-	var option = '<ul id="subList" style="margin-top: 5px;">';
-	option += '<li class="node" style="padding-top: 7px;">';
-	option += '<span class="node-toggle"><strong>'+diagnostic.name+'</strong> '+diagnostic.desc+'</span>';
+	var option = '';
+	option += '<li style="padding-top: 7px;">';
+	option += '<div class="capitulo" aria-expanded="true" data-toggle="collapse" data-target="#subList'+diagnostic.name.split('.').join("")+'">';
+	option += '<strong>'+diagnostic.name+'</strong> '+diagnostic.desc+'</div>';
+	option += '<ul id="subList'+diagnostic.name.split('.').join("")+'" class="collapse in" style="margin-top: 5px;">';
 	option += childs;
-	option += '</li>';
 	option += '</ul>';
+	option += '</li>';
+	option += '';
 	return option;
 }
 
 /**Cria o HTML para um codigo de diagnostico**/
 function buildHtmlDiagnostic(diagnostic){
+	var diag = "'"+diagnostic.name.split('.').join("")+"'";
 	var option = '<li>';
-	option += '<span class="mif-plus" style="margin-left:10px;margin-top:-4px;"/>';
-	option += '<span class="leaf" style="margin-left:7px;"><strong>'+diagnostic.name+'</strong> '+diagnostic.desc+'</span>';
+	option += '<span onclick="addDiagnosticToTable('+diag+');" class="fa fa-plus iconAdd" style="margin-left:10px;"/>';
+	option += '<span class="option" style="margin-left:7px;"><strong>'+diagnostic.name+'</strong> '+diagnostic.desc+'</span>';
 	option += '</li>';
 	return option;
 }
@@ -168,4 +169,30 @@ function searchCodes(obj,e) {
 	}
 	
 	buildOptions(valueNew);
+}
+
+/**Funcao para determinar o codigo**/
+function searchIndexCode(code) {
+	var value = code.toUpperCase();
+	value = value.replace('-', '' );
+	$('#lista_diag').empty();
+	$('#lista_diag').scrollTop(0);
+	diagnosticoSelect = null;
+   
+    
+	/**Carrega o diagnostico principal**/
+	if(value.length == 3){
+		getDiagOptions(valueNew);
+	}else if(value.length > 3){
+		getDiagOptions(value.substring(0, 3));
+	} 
+	
+	buildOptions(value);
+}
+
+/**funcao para adicionar o codigo diagnostico a tabela**/
+function addDiagnosticToTable(nameDiag){
+	 $('#codigoDiagnostico').val(nameDiag);
+	 showBusysign();
+	 $('#adicionarDiagnostico').click();
 }

@@ -46,23 +46,24 @@ function getIndexOptions(search){
 function buildIndex(filter){
 	
 	$('#lista_index').empty();
+	$('#lista_index').scrollTop(0);
 	/**se estiver algum diagnostico seleccionado**/
 	if(indexSelect){
 		var option = '';
 	
 		/**Adiciona o diagnostico principal**/
 		option += '<li class="node" style="padding-top: 7px;">';
-		option += '<span class="node-toggle"></span>';
-		option += '<span class="leaf"><strong>'+indexSelect.title+'</strong></span>';
+		option += '<span class="capitulo" aria-expanded="true"><strong>'+indexSelect.title+'</strong></span>';
 		
 		$.each(indexSelect.mainTerm, function(i, index) {
 			option += '<ul id="subList" style="margin-top: 5px;">';
-			option += '<li class="node" style="padding-top: 7px;">';
+			option += '<li style="padding-top: 7px;">';
+			option += '<span class="fa fa-arrow-right" style="margin-left:10px;margin-right:5px;margin-top:-4px;color: #3e8f24;"/>';
 			/**Se o title for um array*/
 			if($.isPlainObject(index.title)){
-				option += '<span class="node-toggle"><strong>'+index.title.__text+' '+index.title.nemod+'</strong>';
+				option += '<span><strong>'+index.title.__text+' '+index.title.nemod+'</strong>';
 			}else{
-				option += '<span class="node-toggle"><strong>'+index.title+'</strong>';
+				option += '<span><strong>'+index.title+'</strong>';
 			}
 			if(index.code){
 				option += ' '+index.code;
@@ -74,6 +75,9 @@ function buildIndex(filter){
 				option += ' see also '+index.seeAlso ;
 			}
 			option += '</span>';
+			if(index.code){
+				option += '<span onclick="$('+"'"+'#pesquisa'+"'"+').val('+"'"+index.code+"'"+');searchIndexCode('+"'"+index.code+"'"+');" class="fa fa-search" style="margin-left:10px;color: #3e8f24;"></span>';
+			}
 			/**Se tem terms*/
 			if(index.term && $.isArray(index.term)){
 				option += '<ul id="term" style="margin-top: 5px;">';
@@ -95,12 +99,12 @@ function buildIndex(filter){
 
 /**Cria o HTML para um codigo de diagnostico**/
 function buildHtmlTerm(indexTerm){
-	var option = '<li>';
-	option += '<span class="mif-plus" style="margin-left:10px;margin-top:-4px;"/>';
+	var option = '<li style="margin-left:10px;">';
+	option += '<span><strong> - </strong></span>';
 	if($.isPlainObject(indexTerm.title)){
-		option += '<span class="node-toggle"><strong>'+indexTerm.title.__text+' '+indexTerm.title.nemod+'</strong>';
+		option += '<span><strong>'+indexTerm.title.__text+' '+indexTerm.title.nemod+'</strong>';
 	}else{
-		option += '<span class="node-toggle"><strong>'+indexTerm.title+'</strong>';
+		option += '<span><strong>'+indexTerm.title+'</strong>';
 	}
 	if(indexTerm.code){
 		option += ' '+indexTerm.code;
@@ -112,6 +116,11 @@ function buildHtmlTerm(indexTerm){
 		option += ' see also '+indexTerm.seeAlso ;
 	}
 	option += '</span>';
+	
+	if(indexTerm.code){
+		option += '<span onclick="$('+"'"+'#pesquisa'+"'"+').val('+"'"+indexTerm.code+"'"+');searchIndexCode('+"'"+indexTerm.code+"'"+');" class="fa fa-search" style="margin-left:10px;color: #3e8f24;"></span>';
+	}
+	
 	if(indexTerm.term && $.isArray(indexTerm.term)){
 		option += '<ul id="term" style="margin-top: 5px;">';
 		$.each(indexTerm.term, function(t, term) {
