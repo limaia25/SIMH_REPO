@@ -25,12 +25,29 @@ var posBodyPart = '4'
 var posApproach = '5'
 var posDevice = '6'
 var posQualifier= '7'
+	
+/**codigo selecionado**/
+var codeSection = 'codeSection';
+var codeBodySystem = 'codeBodySystem';
+var codeOperation = 'codeOperation';
+var codeBodyPart = 'codeBodyPart';
+var codeApproach = 'codeApproach';
+var codeDevice = 'codeDevice';
+var codeQualifier = 'codeQualifier';
+
+/**descricao do codigo final**/
+var descricaoProc = 'descricaoProc';
+var addProc = 'adicionarProc';
 
 var codes;
+var onlyCodes;
 $( document ).ready(function() {
 	$.getJSON( "http://rawgit.com/SIMHSPMS/SIMH_REPO/master/ICD10/Simulador/icd10pcs-min.json", function( data ) {
 		  codes = data["ICD10PCS.tabular"].pcsTable;
 		  buildSectionOptions();
+	});
+	$.getJSON( "http://rawgit.com/SIMHSPMS/SIMH_REPO/master/ICD10/Simulador/icd10cmOnlycodes.json", function( data ) {  
+		onlyCodes = data.codes;
 	});
 });
 
@@ -68,8 +85,18 @@ function buildSectionOptions(){
 		$("#"+listApproach+"").empty();
 		$("#"+listDevice+"").empty();
 		$("#"+listQualifier+"").empty();
+		$('#'+codeSection).val('');
+		$('#'+codeBodySystem).val('');
+		$('#'+codeOperation).val('');
+		$('#'+codeBodyPart).val('');
+		$('#'+codeApproach).val('');
+		$('#'+codeDevice).val('');
+		$('#'+codeQualifier).val('');
+		$('#'+descricaoProc).text('');
+		$('#'+addProc).attr('onclick', '');
 		if(this.checked) {
 			buildBodySystemOptions(this.value);
+			$('#'+codeSection).val(this.value);
 		}	
 	});
 }
@@ -108,9 +135,18 @@ function buildBodySystemOptions(sectionValue){
 		$("#"+listBodyPart+"").empty();
 		$("#"+listApproach+"").empty();
 		$("#"+listDevice+"").empty();
-		$("#"+listQualifier+"").empty();		
+		$("#"+listQualifier+"").empty();
+		$('#'+codeBodySystem).val('');
+		$('#'+codeOperation).val('');
+		$('#'+codeBodyPart).val('');
+		$('#'+codeApproach).val('');
+		$('#'+codeDevice).val('');
+		$('#'+codeQualifier).val('');
+		$('#'+descricaoProc).text('');
+		$('#'+addProc).attr('onclick', '');
 		if(this.checked) {
 			buildOperationOptions(sectionValue,this.value);
+			$('#'+codeBodySystem).val(this.value);
 		}	
 	});
 }
@@ -149,9 +185,17 @@ function buildOperationOptions(sectionValue,bodySystemValue){
 		$("#"+listBodyPart+"").empty();
 		$("#"+listApproach+"").empty();
 		$("#"+listDevice+"").empty();
-		$("#"+listQualifier+"").empty();		
+		$("#"+listQualifier+"").empty();
+		$('#'+codeOperation).val('');
+		$('#'+codeBodyPart).val('');
+		$('#'+codeApproach).val('');
+		$('#'+codeDevice).val('');
+		$('#'+codeQualifier).val('');
+		$('#'+descricaoProc).text('');
+		$('#'+addProc).attr('onclick', '');
 		if(this.checked) {
 			buildBodyPartOptions(sectionValue,bodySystemValue,this.value);
+			$('#'+codeOperation).val(this.value);
 		}	
 	});
 }
@@ -231,9 +275,16 @@ function buildBodyPartOptions(sectionValue,bodySystemValue,operationValue){
 		$('#'+listBodyPart+' li label').children(" input:checkbox").not(this).prop('checked', false);
 		$("#"+listApproach+"").empty();
 		$("#"+listDevice+"").empty();
-		$("#"+listQualifier+"").empty();		
+		$("#"+listQualifier+"").empty();
+		$('#'+codeBodyPart).val('');
+		$('#'+codeApproach).val('');
+		$('#'+codeDevice).val('');
+		$('#'+codeQualifier).val('');
+		$('#'+descricaoProc).text('');
+		$('#'+addProc).attr('onclick', '');
 		if(this.checked) {
 			buildApproachOptions(sectionValue,bodySystemValue,operationValue,this.value);
+			$('#'+codeBodyPart).val(this.value);
 		}	
 	});
 }
@@ -319,8 +370,14 @@ function buildApproachOptions(sectionValue,bodySystemValue,operationValue,bodyPa
 		$('#'+listApproach+' li label').children(" input:checkbox").not(this).prop('checked', false); 	
 		$("#"+listDevice+"").empty();
 		$("#"+listQualifier+"").empty();
+		$('#'+codeApproach).val('');
+		$('#'+codeDevice).val('');
+		$('#'+codeQualifier).val('');
+		$('#'+descricaoProc).text('');
+		$('#'+addProc).attr('onclick', '');
 		if(this.checked) {
 			buildDeviceOptions(sectionValue,bodySystemValue,operationValue,bodyPartValue,this.value);
+			$('#'+codeApproach).val(this.value);
 		}	
 	});
 }
@@ -407,8 +464,13 @@ function buildDeviceOptions(sectionValue,bodySystemValue,operationValue,bodyPart
 	$('#'+listDevice+' li label').children(" input:checkbox").on('change', function() {
 		$('#'+listDevice+' li label').children(" input:checkbox").not(this).prop('checked', false);
 		$("#"+listQualifier+"").empty();
+		$('#'+codeDevice).val('');
+		$('#'+codeQualifier).val('');
+		$('#'+descricaoProc).text('');
+		$('#'+addProc).attr('onclick', '');
 		if(this.checked) {
 			buildQualifierOptions(sectionValue,bodySystemValue,operationValue,bodyPartValue,approachValue,this.value);
+			$('#'+codeDevice).val(this.value);
 		}	
 	});
 }
@@ -496,9 +558,22 @@ function buildQualifierOptions(sectionValue,bodySystemValue,operationValue,bodyP
 	
 	/**Garante que so um esta selecionado e atualiza o seguinte**/
 	$('#'+listQualifier+' li label').children(" input:checkbox").on('change', function() {
-		$('#'+listQualifier+' li label').children(" input:checkbox").not(this).prop('checked', false); 	
+		$('#'+listQualifier+' li label').children(" input:checkbox").not(this).prop('checked', false); 
+		$('#'+descricaoProc).text('');
+		$('#'+addProc).attr('onclick', '');
 		if(this.checked) {
-			//buildBodySystemOptions(this.value);
+			$('#'+codeQualifier).val(this.value);
+			
+			/**carrega a descao final**/
+			var finalCode = sectionValue;
+			finalCode += bodySystemValue;
+			finalCode += operationValue;
+			finalCode += bodyPartValue;
+			finalCode += approachValue;
+			finalCode += deviceValue;
+			finalCode += this.value;
+			$('#'+descricaoProc).text(onlyCodes[finalCode].desc);
+			$('#'+addProc).attr('onclick', "addProcedureToTable('"+finalCode+"')");			
 		}	
 	});
 }
@@ -641,4 +716,11 @@ function validateDeviceValue(axisPcsRow, deviceValue){
 		});	
 	}
 	return exist;
+}
+
+/**funcao para adicionar o codigo procedimento a tabela**/
+function addProcedureToTable(nameProc){
+	 $('#codigoProcedimento').val(nameProc);
+	 showBusysign();
+	 $('#adicionarProcedimento').click();
 }
